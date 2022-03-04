@@ -3,13 +3,7 @@
 function getRandomNum(min, max) {
   if (max <= min) {
 	  
-   console.log('Ошибка'); 
-  }
-  if (min < 0) {
-   console.log('Введите число больше либо равное 0'); 
-  }
-  if (max < 0) {
-    console.log('Введите число больше либо равное 0'); }
+   return (console.log('Ошибка')); 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 getRandomNum(10, 15);
