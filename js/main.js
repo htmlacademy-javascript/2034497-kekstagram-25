@@ -18,3 +18,4 @@ function limitStr(str, n) {
  return str
 }
  limitStr('Hello!', 10);
+ 
