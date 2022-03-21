@@ -1,26 +1,43 @@
 //Функция, возвращающая случайное целое число из переданного диапазона включительно.
 
-function getRandomNum(min, max) {
-  if (max <= min) {
-   console.log('Ошибка'); 
+function getRandomInclusiveInteger(from, to) {
+  //Гвард (нет числовых значений || два отрицательных значения)
+  if (typeof from !== 'number' ||
+  typeof to !== 'number' ||
+  (from < 0 && to < 0)
+  ) {
+    return null;
   }
-  if (min < 0) {
-   console.log('Введите число больше либо равное 0'); 
+
+  //Одно отрицательное число
+  if (from < 0) {
+    from = 0;
   }
-  if (max < 0) {
-    console.log('Введите число больше либо равное 0'); }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  if (to < 0) {
+    to = 0;
+  }
+  //Числа равны
+  if (from === to) {
+    return from;
+  }
+  //Диапазон перевернут
+  if (from > to) {
+    [from, to] = [to, from]; //деструктурирующее присваивание
+  }
+
+  const min = Math.ceil(from);
+  const max = Math.floor(to);
+
+  return Math.floor(min + Math.random() * (max - min + 1));
 }
-getRandomNum(10, 20);
 
 //Функция для проверки максимальной длины строки.
 
 
-function limitStr (str, n) {
- if (str.length > n) {
-  console.log('warning');
- }
- return str;
+function limitStr (str = '', maxLength) {
+return str.length <= maxLength;
 }
 
-limitStr(10, 'Hello');
+limitStr('Hello', 10);
+
+//Источник: https://github.com/htmlacademy-javascript/1802943-kekstagram-25/blob/master/js/main.js
