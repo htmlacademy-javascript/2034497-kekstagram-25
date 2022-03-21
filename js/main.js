@@ -11,15 +11,16 @@ function getRandomNum(min, max) {
     console.log('Введите число больше либо равное 0'); }
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
+getRandomNum(10, 20);
 
 //Функция для проверки максимальной длины строки.
 
 
-function limitStr(str, n) {
+function limitStr (str, n) {
  if (str.length > n) {
-  console.log('warning') 
+  console.log('warning');
  }
- return str
+ return str;
 }
 
+limitStr(10, 'Hello');
