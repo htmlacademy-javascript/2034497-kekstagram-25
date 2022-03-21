@@ -31,6 +31,8 @@ function getRandomInclusiveInteger(from, to) {
   return Math.floor(min + Math.random() * (max - min + 1));
 }
 
+getRandomInclusiveInteger(10, 20);
+
 //Функция для проверки максимальной длины строки.
 
 
