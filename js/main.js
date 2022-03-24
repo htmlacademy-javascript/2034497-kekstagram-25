@@ -37,9 +37,9 @@ getRandomInclusiveInteger(10, 20);
 
 
 function limitStr (str = '', maxLength) {
-return str.length <= maxLength;
+
+  return str.length <= maxLength;
+
 }
 
 limitStr('Hello', 10);
-
-//Источник: https://github.com/htmlacademy-javascript/1802943-kekstagram-25/blob/master/js/main.js
