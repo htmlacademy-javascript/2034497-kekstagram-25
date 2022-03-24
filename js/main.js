@@ -1,5 +1,4 @@
 //Функция, возвращающая случайное целое число из переданного диапазона включительно.
-
 function getRandomInclusiveInteger(from, to) {
   //Гвард (нет числовых значений || два отрицательных значения)
   if (typeof from !== 'number' ||
@@ -30,16 +29,9 @@ function getRandomInclusiveInteger(from, to) {
 
   return Math.floor(min + Math.random() * (max - min + 1));
 }
-
 getRandomInclusiveInteger(10, 20);
-
 //Функция для проверки максимальной длины строки.
-
-
 function limitStr (str = '', maxLength) {
-
   return str.length <= maxLength;
-
 }
-
 limitStr('Hello', 10);
