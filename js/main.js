@@ -1,105 +1,91 @@
-//Функция, возвращающая случайное целое число из переданного диапазона включительно.
-function getRandomInclusiveInteger(from, to) {
-  //Гвард (нет числовых значений || два отрицательных значения)
-  if (typeof from !== 'number' ||
-  typeof to !== 'number' ||
-  (from < 0 && to < 0)
-  ) {
-    return null;
+//функция выводит рандомное число из переданного диапазона
+const getRandomNumber = function (min, max) {
+  if ((min >= 0 && max >=0) && (min < max)) {
+    min = Math.ceil(min); //Целое число, округление в меньшую сторону
+    max = Math.floot(max); //Целое число, округление в большую сторону
+    return Math.floor(Math.random() * (max - min + 1)) + min; //Возвращает рандомное число из диапазона
   }
+};
 
-  //Одно отрицательное число
-  if (from < 0) {
-    from = 0;
+//Функция проверки длины строки
+const getLength = function (str, max) {
+  if (str.length <= max) {
+    return true;
   }
-  if (to < 0) {
-    to = 0;
-  }
-  //Числа равны
-  if (from === to) {
-    return from;
-  }
-  //Диапазон перевернут
-  if (from > to) {
-    [from, to] = [to, from]; //деструктурирующее присваивание
-  }
+  else { return false; }
+};
 
-  const min = Math.ceil(from);
-  const max = Math.floor(to);
+//Рандомный элемент из массива
+const getRandomElement = function (array) {
+  return array[getRandomNumber(0, array.length - 1)];
+};
 
-  return Math.floor(min + Math.random() * (max - min + 1));
+//счётчик случайных неповторяющихся значений
+function getCounter() {
+  let counter = 1;
+  return function() {
+    return counter++;
+  };
 }
-getRandomInclusiveInteger(10, 20);
-//Функция для проверки максимальной длины строки.
-function limitStr (str = '', maxLength) {
-  return str.length <= maxLength;
-}
-limitStr('Hello', 10);
 
-const objectCount = 25;
-
-const names =	[
-  'Марк',
-  'Билал',
+//Массив с именами пользователей
+const names = [
+  'Дмитрий',
+  'Василиса',
+  'Даниил',
   'Елизавета',
-  'Иван',
-  'Таисия',
-  'Владислав',
-  'Александр',
-  'Анастасия',
-  'Михаил',
-  'Виктор',
-  'Виктория',
-  'Матвей',
-  'Вероника',
-  'Ярослав',
+  'Александра',
+  'Алиса',
+  'Ольга',
   'Фёдор',
-  'Дарина',
-  'Тимофей',
-  'Вячеслав',
-  'Сергей',
-  'Сафия',
-  'Роман',
-  'Филипп',
-  'Павел',
-  'Кирилл',
-  'Дмитрий'
+  'Мария',
+  'Софья'
 ];
 
+//Массив с описаниями к фото
+const description = [
+  'Моё первое фото здесь!',
+  'Наконец-то отпуск',
+  'Мои будни',
+  'Коплю на новый телефон, донаты по ссылке в био',
+  'Меня трудно найти, легко потерять, и невозможно забыть...'
+];
+
+//Массив с комментариями к постам
 const comments = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+  'Красиво',
+  'Нормально, но чего-то не хватает...',
+  'Великолепное фото!Как скинуть маме в ватсап?',
+  'Мда, очевидно у кого-то руки-крюки'
 ];
 
-const shuffleArray = [];
+const countId = getCounter(); //счётчик ID
+const countUrl = getCounter(); //счётчик url
+const countCommId = getCounter(); //счётчик ID для комментариев
+const countAvatar= getCounter(); //счётчик для аватара
 
-const unshuffledIds = [];
+//Функция, генерирует комментарий
+const getComment = function () {
+  const comment = {
+    id: countCommId(),
+    avatar: 'img/avatar-&{getRandomNumber(1, 6) }.svg',
+    message: getRandomElement(comments),
+    name: getRandomElement(names)
+  };
+  return comment;
+};
 
-const shuffledIds = shuffleArray(unshuffledIds);
+//Функция генерирует фотографию с описанием и комментарием
+const getObjPhoto = function () {
+  const obj = {
+    id: countId,
+    url: 'photos/&{ countUrl() }.jpg',
+    description: getRandomElement(description),
+    likes: getRandomNumber(15, 200),
+    comments: Array.from({length: 2},getComment) //Генерирует массив комментариев из двух элементов
+  };
+  return obj;
+};
 
-for (let i=1 ; i <= objectCount ; i++) {
-  unshuffledIds.push(i);
-}
-
-const getRandomArrayElement = (elements) => elements[getRandomInclusiveInteger(0, elements.length - 1)];
-
-const createComment = (id) => ({
-  id,
-  avatar: `img/avatar-${getRandomInclusiveInteger(1, 6)}.svg`,
-  message: getRandomArrayElement(comments),
-  name: getRandomArrayElement(names)
-});
-
-const createPost = (id) => ({
-  id,
-  url: `photos/${id}.jpg`,
-  description: getRandomArrayElement(comments),
-  likes: getRandomInclusiveInteger(15, 200),
-  comments: Array.from({length: objectCount}, (element, index) => createComment(shuffledIds[index]))
-});
-
-const similarPosts = Array.from({length: objectCount}, (element, index) => createPost(index+1));
+//Генерирует массив с объектами
+const createPost = Array.from({length: 25},getObjPhoto);
