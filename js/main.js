@@ -36,9 +36,9 @@ function limitStr (str = '', maxLength) {
 }
 limitStr('Hello', 10);
 
-const SIMMILAR_OBJECT_COUNT = 25;
+const objectCount = 25;
 
-const NAMES =	[
+const names =	[
   'Марк',
   'Билал',
   'Елизавета',
@@ -66,7 +66,7 @@ const NAMES =	[
   'Дмитрий'
 ];
 
-const COMMENTS = [
+const comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -75,29 +75,31 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+const shuffleArray = [];
+
 const unshuffledIds = [];
 
 const shuffledIds = shuffleArray(unshuffledIds);
 
-for (let i=1 ; i <= SIMMILAR_OBJECTS_COUNT ; i++) {
+for (let i=1 ; i <= objectCount ; i++) {
   unshuffledIds.push(i);
 }
 
-const getRandomArrayElement = (elements) => elements[getNumber(0, elements.length - 1)];
+const getRandomArrayElement = (elements) => elements[getRandomInclusiveInteger(0, elements.length - 1)];
 
 const createComment = (id) => ({
   id,
-  avatar: 'img/avatar-${ getRandomInclusiveInteger(1, 6) }.svg',
-  message: getRandomArrayElement(COMMENT),
-  name: getRandomArrayElement(NAMES)
+  avatar: `img/avatar-${getRandomInclusiveInteger(1, 6)}.svg`,
+  message: getRandomArrayElement(comments),
+  name: getRandomArrayElement(names)
 });
 
 const createPost = (id) => ({
   id,
-  url: 'photos/${id}.jpg',
-  description: getRandomArrayElement(COMMENT),
+  url: `photos/${id}.jpg`,
+  description: getRandomArrayElement(comments),
   likes: getRandomInclusiveInteger(15, 200),
-  comments: Array.from({length: SIMILAR_OBJECT_COUNT}, (element, index) => createComment(shuffledIds[index]))
+  comments: Array.from({length: objectCount}, (element, index) => createComment(shuffledIds[index]))
 });
 
-const similarPosts = Array.from({length: SIMMILAR_OBJECTS_COUNT}, (element, index) => createPost(index+1));
+const similarPosts = Array.from({length: objectCount}, (element, index) => createPost(index+1));
