@@ -14,6 +14,7 @@ const getLength = function (str, max) {
   }
   else { return false; }
 };
+getLength();
 
 //Рандомный элемент из массива
 const getRandomElement = function (array) {
@@ -60,9 +61,7 @@ const comments = [
 ];
 
 const countId = getCounter(); //счётчик ID
-const countUrl = getCounter(); //счётчик url
 const countCommId = getCounter(); //счётчик ID для комментариев
-const countAvatar= getCounter(); //счётчик для аватара
 
 //Функция, генерирует комментарий
 const getComment = function () {
@@ -89,3 +88,5 @@ const getObjPhoto = function () {
 
 //Генерирует массив с объектами
 const createPost = Array.from({length: 25},getObjPhoto);
+
+createPost();
