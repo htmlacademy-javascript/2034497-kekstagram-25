@@ -27,7 +27,7 @@ function getCounter() {
   return function() {
     return counter++;
   };
-}
+};
 
 //Массив с именами пользователей
 const names = [
@@ -53,22 +53,27 @@ const description = [
 ];
 
 //Массив с комментариями к постам
-const comments = [
+const messages = [
   'Красиво',
   'Нормально, но чего-то не хватает...',
   'Великолепное фото!Как скинуть маме в ватсап?',
   'Мда, очевидно у кого-то руки-крюки'
 ];
 
+const ID_LENG = 25;
+const COMM_ID_LENG = 5;
+
 const countId = getCounter(); //счётчик ID
 const countCommId = getCounter(); //счётчик ID для комментариев
+const countUrl = getCounter(); //счётчик для URL
+const likesNum = getRandomNumber(15, 200);
 
 //Функция, генерирует комментарий
 const getComment = function () {
   const comment = {
-    id: countCommId(),
-    avatar: 'img/avatar-&{getRandomNumber(1, 6) }.svg',
-    message: getRandomElement(comments),
+    id: countCommId,
+    avatar: `img/avatar-&{getRandomNumber(1, 6) }.svg`,
+    message: getRandomElement(messages),
     name: getRandomElement(names)
   };
   return comment;
@@ -78,15 +83,15 @@ const getComment = function () {
 const getObjPhoto = function () {
   const obj = {
     id: countId,
-    url: 'photos/&{ countUrl() }.jpg',
+    url: `photos/&{ countUrl() }.jpg`,
     description: getRandomElement(description),
-    likes: getRandomNumber(15, 200),
-    comments: Array.from({length: 2},getComment) //Генерирует массив комментариев из двух элементов
+    likes: likesNum,
+    comments: Array.from(COMM_ID_LENG, getComment) //Генерирует массив комментариев
   };
   return obj;
 };
 
 //Генерирует массив с объектами
-const createPost = Array.from({length: 25},getObjPhoto);
+const objects = Array.from(ID_LENG, getObjPhoto);
 
-createPost();
+objects();
